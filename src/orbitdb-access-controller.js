@@ -27,7 +27,7 @@ class OrbitDBAccessController extends AccessController {
     // Write keys and admins keys are allowed
     const access = new Set([...this.get('write'), ...this.get('admin')])
     // If the ACL contains the writer's public key or it contains '*'
-    if (access.has(entry.identity.id) || access.has('*')) {
+    if (access.has(entry.identity.id) || access.has(entry.identity.publicKey) || access.has('*')) {
       const verifiedIdentity = await identityProvider.verifyIdentity(entry.identity)
       // Allow access if identity verifies
       return verifiedIdentity
